@@ -1,5 +1,5 @@
 [package]
-name = "playground"
+name = "minigrep"
 version = "0.1.0"
 authors = ["Hendry Lim <myhendry@gmail.com>"]
 edition = "2018"

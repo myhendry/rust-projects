@@ -15,6 +15,7 @@ impl Config {
     let query = args[1].clone();
     let filename = args[2].clone();
 
+    //*! is_err() returns true or false
     let case_sensitive = env::var("CASE_INSENSITIVE").is_err();
 
     Ok(Config {

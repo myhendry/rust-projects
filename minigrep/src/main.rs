@@ -28,3 +28,8 @@ fn main() {
     // let v = &args[1];
     // println!("v {}", v); //* this will return &String
 }
+
+/*
+use std::io;, io::Error
+Box<dyn<Error>>
+*/
