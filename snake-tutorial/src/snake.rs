@@ -1,10 +1,11 @@
-use std::collections::LinkedList;
-use piston_window::{Context, G2d};
 use piston_window::types::Color;
+use piston_window::{Context, G2d};
+use std::collections::LinkedList;
 
 use crate::draw::draw_block;
 
 const SNAKE_COLOR: Color = [0.00, 0.80, 0.00, 1.0];
+
 #[derive(Copy, Clone, PartialEq)]
 pub enum Direction {
     Up,
@@ -38,18 +39,9 @@ pub struct Snake {
 impl Snake {
     pub fn new(x: i32, y: i32) -> Snake {
         let mut body: LinkedList<Block> = LinkedList::new();
-        body.push_back(Block {
-            x: x + 2,
-            y,
-        });
-        body.push_back(Block {
-            x: x + 1,
-            y,
-        });
-        body.push_back(Block {
-            x,
-            y,
-        });
+        body.push_back(Block { x: x + 2, y });
+        body.push_back(Block { x: x + 1, y });
+        body.push_back(Block { x, y });
 
         Snake {
             direction: Direction::Right,
@@ -58,17 +50,20 @@ impl Snake {
         }
     }
 
+    //* draw the snake
     pub fn draw(&self, con: &Context, g: &mut G2d) {
         for block in &self.body {
             draw_block(SNAKE_COLOR, block.x, block.y, con, g);
         }
     }
 
+    //* identify snake's head position
     pub fn head_position(&self) -> (i32, i32) {
         let head_block = self.body.front().unwrap();
         (head_block.x, head_block.y)
     }
 
+    //* snake moving forward
     pub fn move_forward(&mut self, dir: Option<Direction>) {
         match dir {
             Some(d) => self.direction = d,
@@ -100,6 +95,7 @@ impl Snake {
         self.tail = Some(removed_block);
     }
 
+    //* identify snake direction
     pub fn head_direction(&self) -> Direction {
         self.direction
     }
@@ -121,6 +117,7 @@ impl Snake {
         }
     }
 
+    //* used only when snake eats apple
     pub fn restore_tail(&mut self) {
         let blk = self.tail.clone().unwrap();
         self.body.push_back(blk);
